@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/projects', projectsRouter);
+app.use('/contacts', projectsRouter);
 
 // mongodb connection
 const mongoose = require('mongoose')
@@ -33,9 +33,9 @@ mongoose.connect(config.db, {
   useUnifiedTopology: true
 })
     .then((res) => {
-      console.log('Connected to MongoDB')
+        console.log('Connected to MongoDB')
     }).catch(() => {
-  console.log('MongoDB Connection Failed')
+    console.log('MongoDB Connection Failed')
 })
 
 
