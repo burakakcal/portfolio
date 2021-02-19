@@ -1,9 +1,10 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: "Burak's Portfolio" });
+  res.render('index', {
+    title: "Burak's Portfolio" });
 });
 
 
@@ -13,6 +14,15 @@ router.get('/about', (req, res, next) => {
     title: 'About Me',
     pageText: 'Here is some information about me in detail'
   })
+});
+
+/* GET /work */
+router.get('/work', (req, res, next) => {
+  res.render('work', {
+    title: 'My Projects',
+    pageText: 'A list of my projects'
+  })
 })
+
 
 module.exports = router;
