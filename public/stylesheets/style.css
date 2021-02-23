@@ -22,7 +22,12 @@ p {
 }
 
 .container {
-  margin-top: 20px
+  margin-top: 20px;
+}
+
+.container3 {
+  margin-top: 20px;
+  margin-left:20px;
 }
 
 .title {
@@ -55,7 +60,7 @@ p {
 }
 
 .content:hover .content-overlay {
-  opacity: 1
+  opacity: 1;
 }
 
 .content-image {
@@ -133,5 +138,12 @@ a.nav-link:hover
   color:white;
 }
 
+.bg-light{
+  background-image: url("/public/images/bg1.jpg");
+}
+
+.p-5 h1,h4{
+  color:white;
+}
 
 

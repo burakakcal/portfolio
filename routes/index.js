@@ -34,7 +34,15 @@ router.get('/work', (req, res, next) => {
     title: 'My Projects',
     pageText: 'A list of my projects'
   })
-})
+});
+
+/* GET /form */
+router.get('/form', (req, res, next) => {
+  res.render('form', {
+    title: 'Contact Form',
+    pageText: 'Please fill in the contact form below and I will get back to you ASAP.'
+  })
+});
 
 
 module.exports = router;
