@@ -10,6 +10,9 @@ var projectsRouter = require('./routes/contacts');
 
 var app = express();
 
+
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
