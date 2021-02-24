@@ -9,10 +9,6 @@ var usersRouter = require('./routes/users');
 var projectsRouter = require('./routes/contacts');
 
 var app = express();
-
-
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -57,5 +53,57 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+//nodemailer email contact form
+var app = express();
+
+var smtpTransport = nodemailer.createTransport("SMTP", {
+
+    service: 'Gmail',
+    auth: {
+        // enter your gmail account
+        user: 'burakakcal@gmail.com',
+        // enter your gmail password
+        pass: 'YSd89**54.gghSDw'
+    }
+});
+
+app.use(express.static(__dirname + '/public'));
+
+app.get('/', function (req, res) {
+    res.sendfile('./public/index.html');
+});
+
+app.get('/send', function (req, res) {
+
+    var mailOptions = {
+        to: req.query.to,
+        subject: 'Contact Form Message',
+        from: "Contact Form Request" + "<" + req.query.from + '>',
+        html:  "From: " + req.query.name + "<br>" +
+            "User's email: " + req.query.user + "<br>" +     "Message: " + req.query.text
+    }
+
+    console.log(mailOptions);
+    smtpTransport.sendMail(mailOptions, function (err, response) {
+        if (err) {
+            console.log(err);
+            res.end("error");
+        } else {
+            console.log("Message sent: " + response.message);
+            res.end("sent");
+        }
+    });
+
+});
+
+app.listen(8080, function (err) {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log("Listening on port on 8080");
+    }
+});
+
 
 module.exports = app;
