@@ -1,5 +1,7 @@
 body {
-  padding: 50px;
+  padding: 40px;
+  background-image: url("../images/bg1.jpg");
+  background-color: #cccccc;
 }
 
 a {
@@ -22,7 +24,8 @@ p {
 }
 
 .container {
-  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .container3 {
@@ -126,8 +129,7 @@ a.nav-link
   height: 5.5rem;
 }
 
-a.nav-link:hover
-{
+a.nav-link:hover {
   color:red;
 }
 
@@ -138,12 +140,14 @@ a.nav-link:hover
   color:white;
 }
 
-.bg-light{
-  background-image: url("/images/bg1.jpg");
+.navbar{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.p-5 h1,h4{
-  color:white;
+.container p{
+  font-size:16px;
 }
+
+
 
 
