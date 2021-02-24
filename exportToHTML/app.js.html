@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>app.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #808080;}
+.s4 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+app.js</font>
+</center></td></tr></table>
+<pre><span class="s0">var </span><span class="s1">createError = require(</span><span class="s2">'http-errors'</span><span class="s1">)</span><span class="s0">;</span>
+<span class="s0">var </span><span class="s1">express = require(</span><span class="s2">'express'</span><span class="s1">)</span><span class="s0">;</span>
+<span class="s0">var </span><span class="s1">path = require(</span><span class="s2">'path'</span><span class="s1">)</span><span class="s0">;</span>
+<span class="s0">var </span><span class="s1">cookieParser = require(</span><span class="s2">'cookie-parser'</span><span class="s1">)</span><span class="s0">;</span>
+<span class="s0">var </span><span class="s1">logger = require(</span><span class="s2">'morgan'</span><span class="s1">)</span><span class="s0">;</span>
+<span class="s0">var </span><span class="s1">nodemailer = require(</span><span class="s2">'nodemailer'</span><span class="s1">)</span><span class="s0">;</span>
+<span class="s0">var </span><span class="s1">indexRouter = require(</span><span class="s2">'./routes/index'</span><span class="s1">)</span><span class="s0">;</span>
+<span class="s0">var </span><span class="s1">usersRouter = require(</span><span class="s2">'./routes/users'</span><span class="s1">)</span><span class="s0">;</span>
+<span class="s0">var </span><span class="s1">projectsRouter = require(</span><span class="s2">'./routes/contacts'</span><span class="s1">)</span><span class="s0">;</span>
+
+<span class="s0">var </span><span class="s1">app = express()</span><span class="s0">;</span>
+
+<span class="s3">// view engine setup</span>
+<span class="s1">app.set(</span><span class="s2">'views'</span><span class="s0">, </span><span class="s1">path.join(__dirname</span><span class="s0">, </span><span class="s2">'views'</span><span class="s1">))</span><span class="s0">;</span>
+<span class="s1">app.set(</span><span class="s2">'view engine'</span><span class="s0">, </span><span class="s2">'hbs'</span><span class="s1">)</span><span class="s0">;</span>
+
+<span class="s1">app.use(logger(</span><span class="s2">'dev'</span><span class="s1">))</span><span class="s0">;</span>
+<span class="s1">app.use(express.json())</span><span class="s0">;</span>
+<span class="s1">app.use(express.urlencoded({ extended: </span><span class="s0">false </span><span class="s1">}))</span><span class="s0">;</span>
+<span class="s1">app.use(cookieParser())</span><span class="s0">;</span>
+<span class="s1">app.use(express.static(path.join(__dirname</span><span class="s0">, </span><span class="s2">'public'</span><span class="s1">)))</span><span class="s0">;</span>
+
+<span class="s1">app.use(</span><span class="s2">'/'</span><span class="s0">, </span><span class="s1">indexRouter)</span><span class="s0">;</span>
+<span class="s1">app.use(</span><span class="s2">'/users'</span><span class="s0">, </span><span class="s1">usersRouter)</span><span class="s0">;</span>
+<span class="s1">app.use(</span><span class="s2">'/contacts'</span><span class="s0">, </span><span class="s1">projectsRouter)</span><span class="s0">;</span>
+
+<span class="s3">// mongodb connection</span>
+<span class="s0">const </span><span class="s1">mongoose = require(</span><span class="s2">'mongoose'</span><span class="s1">)</span>
+<span class="s3">// global vars configuration file</span>
+<span class="s0">const </span><span class="s1">config = require(</span><span class="s2">'./config/globals'</span><span class="s1">)</span>
+<span class="s1">mongoose.connect(config.db</span><span class="s0">, </span><span class="s1">{</span>
+  <span class="s1">useNewUrlParser: </span><span class="s0">true,</span>
+  <span class="s1">useUnifiedTopology: </span><span class="s0">true</span>
+<span class="s1">})</span>
+    <span class="s1">.then((res) =&gt; {</span>
+        <span class="s1">console.log(</span><span class="s2">'Connected to MongoDB'</span><span class="s1">)</span>
+    <span class="s1">}).catch(() =&gt; {</span>
+    <span class="s1">console.log(</span><span class="s2">'MongoDB Connection Failed'</span><span class="s1">)</span>
+<span class="s1">})</span>
+
+
+<span class="s3">// catch 404 and forward to error handler</span>
+<span class="s1">app.use(</span><span class="s0">function</span><span class="s1">(req</span><span class="s0">, </span><span class="s1">res</span><span class="s0">, </span><span class="s1">next) {</span>
+  <span class="s1">next(createError(</span><span class="s4">404</span><span class="s1">))</span><span class="s0">;</span>
+<span class="s1">})</span><span class="s0">;</span>
+
+<span class="s3">// error handler</span>
+<span class="s1">app.use(</span><span class="s0">function</span><span class="s1">(err</span><span class="s0">, </span><span class="s1">req</span><span class="s0">, </span><span class="s1">res</span><span class="s0">, </span><span class="s1">next) {</span>
+  <span class="s3">// set locals, only providing error in development</span>
+  <span class="s1">res.locals.message = err.message</span><span class="s0">;</span>
+  <span class="s1">res.locals.error = req.app.get(</span><span class="s2">'env'</span><span class="s1">) === </span><span class="s2">'development' </span><span class="s1">? err : {}</span><span class="s0">;</span>
+
+  <span class="s3">// render the error page</span>
+  <span class="s1">res.status(err.status || </span><span class="s4">500</span><span class="s1">)</span><span class="s0">;</span>
+  <span class="s1">res.render(</span><span class="s2">'error'</span><span class="s1">)</span><span class="s0">;</span>
+<span class="s1">})</span><span class="s0">;</span>
+
+<span class="s1">module.exports = app</span><span class="s0">;</span>
+</pre>
+</body>
+</html>
