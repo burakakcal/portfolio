@@ -131,11 +131,11 @@ a.nav-link
 }
 
 a.nav-link:hover {
-  color:red;
+  color:#00c2cb;
 }
 
 .footer a:hover {
-  color:red;
+  color:#00c2cb;
 }
 .footer a{
   color:white;
