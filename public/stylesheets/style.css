@@ -2,6 +2,7 @@ body {
   padding: 40px;
   background-image: url("../images/bg1.jpg");
   background-color: #cccccc;
+  height: 900px;
 }
 
 a {
@@ -123,10 +124,10 @@ a.nav-link
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 94%;
-  height: 5.5rem;
+  display:inline-block;
+  position: fixed;
+  bottom:0;
+  width: 100%;
 }
 
 a.nav-link:hover {
